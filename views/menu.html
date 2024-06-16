@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="../css/styleMenu.css">
+    <link href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@4/dark.css" rel="stylesheet">
+
     <title>Document</title>
 </head>
 <body>
@@ -131,6 +133,57 @@
     });
 });
 
+
+function deleteProduto(cdProduto) {
+    Swal.fire({
+        html: "<h5 style='color:black; text-align: center;'>Tem certeza que quer deletar esse produto?</h5>",
+        text: "Não será possível reverter depois",
+        icon: "warning",
+        background: "#fff",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Deletar",
+        cancelButtonText: "Cancelar",
+        customClass: {
+            content: 'text-center'
+        }
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                type: 'POST',
+                url: '../php/excluir_produtos.php',
+                data: { cdProduto: cdProduto }, // Envia um objeto com a chave cdProduto
+                success: function(response) {
+                    if (response.trim() === 'success') {
+                        Swal.fire({
+                            html: "<h5 style='color:black; text-align: center;'>Produto Deletado</h5>",
+                            background: "#fff",
+                            icon: "success"
+                        });
+                    } else {
+                        Swal.fire({
+                            html: "<h5 style='color:black; text-align: center;'>Erro: " + response + "</h5>",
+                            background: "#fff",
+                            icon: "error"
+                        });
+                    }
+                },
+                error: function() {
+                    Swal.fire({
+                        html: "<h5 style='color:black; text-align: center;'>Houve um erro ao processar a solicitação.</h5>",
+                        background: "#fff",
+                        icon: "error"
+                    });
+                }
+            });
+        }
+    });
+}
+
+
+
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
 </body>
 </html>

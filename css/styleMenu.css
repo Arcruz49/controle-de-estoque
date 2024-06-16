@@ -23,6 +23,7 @@ div.dataTables_wrapper .dataTables_paginate .paginate_button {
     background-color: #fff; 
     color: #333; 
     cursor: pointer; 
+    margin-bottom: 20px;
 }
 
 div.dataTables_wrapper .dataTables_paginate .paginate_button.current {
@@ -46,4 +47,8 @@ div.dataTables_wrapper .dataTables_paginate .paginate_button:last-child {
 
 .btn{
     padding: 5px;
+}
+
+.btn:hover {
+    border: 1px solid #333;
 }
