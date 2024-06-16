@@ -43,3 +43,7 @@ div.dataTables_wrapper .dataTables_paginate .paginate_button:last-child {
 .table-cell-center {
     text-align: center;
 }
+
+.btn{
+    padding: 5px;
+}

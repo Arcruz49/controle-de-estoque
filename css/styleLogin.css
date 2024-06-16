@@ -1,25 +1,37 @@
-body{
+body {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-color: rgb(95, 114, 133);
+    background-color: rgb(209, 217, 226);
 }
 
 .containerLogin {
-    max-width: 100%; 
-    max-height: 100%; 
+    width: 100%;
+    max-width: 300px; 
     background-color: #ffff;
     padding: 30px;
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.btn{
-    margin-top: 30px;
-}
-.form-floating{
-    margin-top: 5px;
+.btn {
+    margin-top: 20px; 
 }
 
+.form-floating {
+    margin-top: 10px; 
+}
 
+footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    z-index: 1000; 
+}
+
+#message {
+    max-width: 200px; 
+    margin: 10px auto; 
+    text-align: center;
+}
