@@ -156,7 +156,8 @@
                 data: { cdProduto: cdProduto }, 
                 success: function(response) {
                     if (response.trim() === 'success') {
-                      
+                      $("#productsTable").DataTable().ajax.reload();
+
                         Swal.fire({
                             html: "<h5 style='color:black; text-align: center;'>Produto Deletado</h5>",
                             background: "#fff",
@@ -191,7 +192,8 @@
                 data: { cdProduto: cdProduto }, 
                 success: function(response) {
                     if (response.trim() === 'success') {
-                      
+                      $("#productsTable").DataTable().ajax.reload();
+
                     } else {
                       Swal.fire({
                             html: "<h5 style='color:black; text-align: center;'>Erro: " + response + "</h5>",
@@ -212,8 +214,33 @@
       }
 
       function aumentaEstoque(cdProduto){
-        
+        $.ajax({
+                type: 'POST',
+                url: '../php/aumentaEstoque.php',
+                data: { cdProduto: cdProduto }, 
+                success: function(response) {
+                    if (response.trim() === 'success') {
+                      $("#productsTable").DataTable().ajax.reload();
+
+                    } else {
+                      Swal.fire({
+                            html: "<h5 style='color:black; text-align: center;'>Erro: " + response + "</h5>",
+                            background: "#fff",
+                            icon: "error"
+                        });
+                    }
+                },
+                error: function() {
+                  Swal.fire({
+                            html: "<h5 style='color:black; text-align: center;'>Erro: " + response + "</h5>",
+                            background: "#fff",
+                            icon: "error"
+                        });
+                }
+            });
+            $("#productsTable").DataTable().ajax.reload();
       }
+      
 
     </script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
