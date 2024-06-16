@@ -2,8 +2,12 @@
 
 session_start();
 
-include "../config/dbconfig.php";
+if (!isset($_SESSION['nome'])) {
+    header("Location: ../views/index.html");
+    exit;
+}
 
+include "../config/dbconfig.php";
 
 /*
     cdProduto,

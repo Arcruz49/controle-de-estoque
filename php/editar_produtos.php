@@ -2,6 +2,11 @@
 
 session_start();
 
+if (!isset($_SESSION['nome'])) {
+    header("Location: ../views/index.html");
+    exit;
+}
+
 include "../config/dbconfig.php";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -32,5 +37,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     exit;
 }
 
+mysqli_close($conexao);
 ?>
 
