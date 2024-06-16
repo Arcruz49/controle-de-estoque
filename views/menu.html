@@ -67,7 +67,7 @@
     <script src="https://kit.fontawesome.com/4327c32687.js" crossorigin="anonymous"></script>
     
     <script>
-       $(document).ready(function() {
+      $(document).ready(function() {
     let table = $('#productsTable').DataTable({
         "ajax": {
             "url": "../php/busca_produtos.php",
@@ -134,7 +134,7 @@
 });
 
 
-function deleteProduto(cdProduto) {
+      function deleteProduto(cdProduto) {
     Swal.fire({
         html: "<h5 style='color:black; text-align: center;'>Tem certeza que quer deletar esse produto?</h5>",
         text: "Não será possível reverter depois",
@@ -156,7 +156,7 @@ function deleteProduto(cdProduto) {
                 data: { cdProduto: cdProduto }, 
                 success: function(response) {
                     if (response.trim() === 'success') {
-                      $("#productsTable").DataTable().ajax.reload();
+                      
                         Swal.fire({
                             html: "<h5 style='color:black; text-align: center;'>Produto Deletado</h5>",
                             background: "#fff",
@@ -179,11 +179,41 @@ function deleteProduto(cdProduto) {
                     });
                 }
             });
+            $("#productsTable").DataTable().ajax.reload();
         }
     });
 }
 
+      function diminuiEstoque(cdProduto){
+        $.ajax({
+                type: 'POST',
+                url: '../php/diminuiEstoque.php',
+                data: { cdProduto: cdProduto }, 
+                success: function(response) {
+                    if (response.trim() === 'success') {
+                      
+                    } else {
+                      Swal.fire({
+                            html: "<h5 style='color:black; text-align: center;'>Erro: " + response + "</h5>",
+                            background: "#fff",
+                            icon: "error"
+                        });
+                    }
+                },
+                error: function() {
+                  Swal.fire({
+                            html: "<h5 style='color:black; text-align: center;'>Erro: " + response + "</h5>",
+                            background: "#fff",
+                            icon: "error"
+                        });
+                }
+            });
+            $("#productsTable").DataTable().ajax.reload();
+      }
 
+      function aumentaEstoque(cdProduto){
+        
+      }
 
     </script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
