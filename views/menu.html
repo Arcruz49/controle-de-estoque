@@ -180,7 +180,7 @@
                     });
                 }
             });
-            $("#productsTable").DataTable().ajax.reload();
+            $("#productsTable").DataTable().ajax.reload(null, false);
         }
     });
 }
@@ -192,7 +192,7 @@
                 data: { cdProduto: cdProduto }, 
                 success: function(response) {
                     if (response.trim() === 'success') {
-                      $("#productsTable").DataTable().ajax.reload();
+                      $("#productsTable").DataTable().ajax.reload(null, false);
 
                     } else {
                       Swal.fire({
@@ -210,7 +210,7 @@
                         });
                 }
             });
-            $("#productsTable").DataTable().ajax.reload();
+            $("#productsTable").DataTable().ajax.reload(null, false);
       }
 
       function aumentaEstoque(cdProduto){
@@ -220,7 +220,7 @@
                 data: { cdProduto: cdProduto }, 
                 success: function(response) {
                     if (response.trim() === 'success') {
-                      $("#productsTable").DataTable().ajax.reload();
+                      $("#productsTable").DataTable().ajax.reload(null, false);
 
                     } else {
                       Swal.fire({
@@ -238,7 +238,7 @@
                         });
                 }
             });
-            $("#productsTable").DataTable().ajax.reload();
+            $("#productsTable").DataTable().ajax.reload(null, false);
       }
       
 
