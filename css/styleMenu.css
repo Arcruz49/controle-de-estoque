@@ -1,0 +1,45 @@
+
+
+.form-control{
+    width: 620px;
+}
+
+header {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+}
+
+div.dataTables_wrapper .dataTables_paginate {
+    text-align: left; 
+    margin-top: 20px; 
+}
+
+div.dataTables_wrapper .dataTables_paginate .paginate_button {
+    display: inline-block;
+    margin-left: 0; 
+    margin-right: 5px; 
+    padding: 0.3em 0.8em; 
+    border: 1px solid #ccc; 
+    border-radius: 0.25em; 
+    background-color: #fff; 
+    color: #333; 
+    cursor: pointer; 
+}
+
+div.dataTables_wrapper .dataTables_paginate .paginate_button.current {
+    background-color: #007bff; 
+    color: #fff; 
+    border-color: #007bff; 
+}
+
+div.dataTables_wrapper .dataTables_paginate .paginate_button:first-child,
+div.dataTables_wrapper .dataTables_paginate .paginate_button:last-child {
+    margin-right: 0; 
+}
+
+.table-header-center {
+    text-align: center;
+}
+
+.table-cell-center {
+    text-align: center;
+}
