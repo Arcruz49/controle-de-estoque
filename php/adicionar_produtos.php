@@ -16,8 +16,9 @@ include "../config/dbconfig.php";
 
     
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Mudar para o que vai ser usado no html
+    // TODO: Mudar para o que vai ser usado no html
     if (empty($_POST["cdProduto"]) || empty($_POST["nmProduto"]) || empty($_POST["descProduto"]) || empty($_POST["preco"]) || empty($_POST["quantidade"])) {
+        echo "Coisas obrigatórias.";
         exit;
     }
 
