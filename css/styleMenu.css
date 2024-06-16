@@ -1,6 +1,6 @@
 
 
-.form-control{
+.d-flex .form-control{
     width: 620px;
 }
 
@@ -51,4 +51,8 @@ div.dataTables_wrapper .dataTables_paginate .paginate_button:last-child {
 
 .btn:hover {
     border: 1px solid #333;
+}
+
+.form-label{
+    width: 300px;
 }

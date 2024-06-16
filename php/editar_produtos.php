@@ -1,5 +1,4 @@
 <?php
-
 session_start();
 
 if (!isset($_SESSION['nome'])) {
@@ -10,33 +9,32 @@ if (!isset($_SESSION['nome'])) {
 include "../config/dbconfig.php";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // TODO: Mudar para o que vai ser usado no html
     if (empty($_POST["cdProduto"]) || empty($_POST["nmProduto"]) || empty($_POST["descProduto"]) || empty($_POST["preco"]) || empty($_POST["quantidade"])) {
-        echo "Coisas obrigatórias.";
+        echo "Todos os campos são obrigatórios.";
         exit;
     }
 
-    $cdproduto = mysqli_real_escape_string($conexao, $_POST['cdproduto']);
-    $nmproduto = mysqli_real_escape_string($conexao, $_POST['nmproduto']);
-    $descproduto = mysqli_real_escape_string($conexao, $_POST['descproduto']);
-    if (strlen($descproduto) >= 100) {
-        $descproduto = substr($descproduto, 0, 100);
+    $cdproduto = mysqli_real_escape_string($conexao, $_POST['cdProduto']);
+    $nmproduto = mysqli_real_escape_string($conexao, $_POST['nmProduto']);
+    $descproduto = mysqli_real_escape_string($conexao, $_POST['descProduto']);
+    
+    if (strlen($descproduto) >= 200) {
+        $descproduto = substr($descproduto, 0, 200);
     }
 
     $preco = mysqli_real_escape_string($conexao, $_POST['preco']);
     $quantidade = mysqli_real_escape_string($conexao, $_POST['quantidade']);
 
-    $update = "UPDATE tb_produtos SET nmProduto = '$nmproduto', descproduto = '$descproduto', preco = '$preco', quantidade = '$quantidade') WHERE cdProduto = '$cdproduto';";
+    $update = "UPDATE tb_produtos SET nmProduto = '$nmproduto', descProduto = '$descproduto', preco = '$preco', quantidade = '$quantidade' WHERE cdProduto = '$cdproduto'";
     $result = mysqli_query($conexao, $update);
-    if ($result == false) {
+
+    if ($result) {
+        echo "success";
+    } else {
         echo "Não foi possível atualizar os dados do produto.";
-        exit;
     }
 
-    echo "success";
+    mysqli_close($conexao);
     exit;
 }
-
-mysqli_close($conexao);
 ?>
-

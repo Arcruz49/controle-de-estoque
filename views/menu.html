@@ -16,7 +16,7 @@
                     <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"/></svg>
                 </a>
                 <ul class="dropdown-menu text-small shadow">
-                    <li><a class="dropdown-item" href="#">Adicionar Novo item</a></li>
+                    <li><a class="dropdown-item" href="#">Produtos</a></li>
                     <li><a class="dropdown-item" href="#">Usuários</a></li>
                 </ul>
             </div>
@@ -60,10 +60,48 @@
         </div>
     </div>
 
+
+
+<div class="modal fade" id="editProductModal" tabindex="-1" aria-labelledby="editProductModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="editProductModalLabel">Editar Produto</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="editProductForm">
+            <div class="mb-3">
+              <label for="editProductName" class="form-label">Nome do Produto</label>
+              <input type="text" class="form-control" id="editProductName" name="nmProduto">
+            </div>
+            <div class="mb-3">
+              <label for="editProductDescription" class="form-label">Descrição do Produto</label>
+              <textarea class="form-control" id="editProductDescription" name="descProduto"></textarea>
+            </div>
+            <div class="mb-3">
+              <label for="editProductPrice" class="form-label">Preço</label>
+              <input type="number" step="0.01" class="form-control" id="editProductPrice" name="preco">
+            </div>
+            <div class="mb-3">
+              <label for="editProductQuantity" class="form-label">Quantidade</label>
+              <input type="number" class="form-control" id="editProductQuantity" name="quantidade">
+            </div>
+            <input type="hidden" id="editProductId" name="cdProduto">
+            <button type="submit" class="btn btn-primary">Salvar mudanças</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
     <script src="https://kit.fontawesome.com/4327c32687.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+
     
     <script>
       $(document).ready(function() {
@@ -73,9 +111,6 @@
                   "type": "GET",
                   "data": function(d) {
                       d.search = $('#search').val(); 
-                  },
-                  "error": function(data) {
-                        alert(data.error().getResponseHeader());
                   },
               },
               "columns": [
@@ -161,7 +196,7 @@
                       data: { cdProduto: cdProduto }, 
                       success: function(response) {
                           if (response.trim() === 'success') {
-                              $("#productsTable").DataTable().ajax.reload();
+                              $("#productsTable").DataTable().ajax.reload(null, false);
 
                               Swal.fire({
                                   html: "<h5 style='color:black; text-align: center;'>Produto Deletado</h5>",
@@ -244,8 +279,83 @@
               }
           });
           $("#productsTable").DataTable().ajax.reload(null, false);
-      }
+        }
+
+        function editarProduto(cdProduto) {
+            $.ajax({
+                type: 'GET',
+                url: '../php/get_produto.php',
+                data: { cdProduto: cdProduto },
+                success: function(response) {
+                    try {
+                        var produto = response;
+
+                        if (produto.error) {
+                            Swal.fire({
+                                html: `<h5 style='color:black; text-align: center;'>${produto.error}</h5>`,
+                                background: "#fff",
+                                icon: "error"
+                            });
+                            return;
+                        }
+                        $('#editProductId').val(produto.cdProduto);
+                        $('#editProductName').val(produto.nmProduto);
+                        $('#editProductDescription').val(produto.descProduto);
+                        $('#editProductPrice').val(produto.preco);
+                        $('#editProductQuantity').val(produto.quantidade);
+
+                        var myModal = new bootstrap.Modal(document.getElementById('editProductModal'), {
+                            keyboard: false
+                        });
+                        myModal.show();
+                    } catch (e) {
+                        Swal.fire({
+                            html: "<h5 style='color:black; text-align: center;'>Erro ao processar a resposta do servidor.</h5>",
+                            background: "#fff",
+                            icon: "error"
+                        });
+                    }
+                },
+                error: function() {
+                    Swal.fire({
+                        html: "<h5 style='color:black; text-align: center;'>Houve um erro ao obter os dados do produto.</h5>",
+                        background: "#fff",
+                        icon: "error"
+                    });
+                }
+            });
+        }
+
+        $('#editProductForm').on('submit', function(event) {
+            event.preventDefault();
+            
+            $.ajax({
+                type: 'POST',
+                url: '../php/editar_produtos.php',
+                data: $(this).serialize(),
+                success: function(response) {
+                    if (response.trim() === 'success') {
+                        $('#editProductModal').modal('hide');
+                        $('#productsTable').DataTable().ajax.reload(null, false);
+                    } else {
+                        Swal.fire({
+                            html: "<h5 style='color:black; text-align: center;'>Houve um erro ao alterar os dados do produto: " + response + "</h5>",
+                            background: "#fff",
+                            icon: "error"
+                        });
+                    }
+                },
+                error: function() {
+                    Swal.fire({
+                        html: "<h5 style='color:black; text-align: center;'>Houve um erro ao alterar os dados do produto.</h5>",
+                        background: "#fff",
+                        icon: "error"
+                    });
+                }
+            });
+        });
+
+
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
 </body>
 </html>
