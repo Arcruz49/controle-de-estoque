@@ -153,14 +153,16 @@ function deleteProduto(cdProduto) {
             $.ajax({
                 type: 'POST',
                 url: '../php/excluir_produtos.php',
-                data: { cdProduto: cdProduto }, // Envia um objeto com a chave cdProduto
+                data: { cdProduto: cdProduto }, 
                 success: function(response) {
                     if (response.trim() === 'success') {
+                      $("#productsTable").DataTable().ajax.reload();
                         Swal.fire({
                             html: "<h5 style='color:black; text-align: center;'>Produto Deletado</h5>",
                             background: "#fff",
                             icon: "success"
-                        });
+                          })
+
                     } else {
                         Swal.fire({
                             html: "<h5 style='color:black; text-align: center;'>Erro: " + response + "</h5>",
