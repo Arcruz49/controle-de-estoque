@@ -74,6 +74,9 @@
                   "data": function(d) {
                       d.search = $('#search').val(); 
                   },
+                  "error": function(data) {
+                        alert(data.error().getResponseHeader());
+                  },
               },
               "columns": [
                   { "data": "cdProduto", "class": "table-cell-center" },
