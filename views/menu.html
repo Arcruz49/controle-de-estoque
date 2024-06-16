@@ -119,7 +119,16 @@
               "columns": [
                   { "data": "cdProduto", "class": "table-cell-center" },
                   { "data": "nmProduto", "class": "table-cell-center" },
-                  { "data": "descProduto", "class": "table-cell-center" },
+                  { 
+                    "data": "descProduto", 
+                    "class": "table-cell-center",
+                    "render": function(data, type, row) {
+                        if(data.length > 50)
+                            return data.substring(0, 50) + '...';
+                        return data;
+                      }
+                
+                  },
                   { 
                       "data": "preco",
                       "class": "table-cell-center",
