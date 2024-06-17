@@ -18,3 +18,5 @@ CREATE TABLE IF NOT EXISTS tb_produtos (
     quantidade INT,
     dtCriacao DateTime,
 );
+
+INSERT INTO cadusuario (nmUsuario, senha, dtCriacao) VALUES ('admin', '123', NOW());
