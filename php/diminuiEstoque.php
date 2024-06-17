@@ -17,17 +17,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $cdproduto = mysqli_real_escape_string($conexao, $_POST['cdProduto']);
     
-    $sql = "UPDATE tb_produtos SET quantidade = quantidade - 1 WHERE cdProduto = '$cdproduto';";
-    
-    $result = mysqli_query($conexao, $sql);
-    
-    if ($result) {
-        echo "success";
-        exit;
+    $sqlVerificacao = "SELECT quantidade FROM tb_produtos WHERE cdProduto = '$cdproduto'";
+    $resultVerificacao = mysqli_query($conexao, $sqlVerificacao);
+
+    if ($resultVerificacao) {
+        $row = mysqli_fetch_assoc($resultVerificacao);
+        
+        if ($row['quantidade'] > 0) {
+            $sql = "UPDATE tb_produtos SET quantidade = quantidade - 1 WHERE cdProduto = '$cdproduto'";
+            $result = mysqli_query($conexao, $sql);
+            
+            if ($result) {
+                echo "success";
+            } else {
+                echo "Não foi possível atualizar o produto.";
+            }
+        } else {
+            echo "Quantidade insuficiente para diminuir.";
+        }
     } else {
-        echo "Não foi possível atualizar o produto.";
-        exit;
+        echo "Erro ao buscar o produto.";
     }
+    exit;
 }
 
 mysqli_close($conexao);
