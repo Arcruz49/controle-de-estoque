@@ -14,7 +14,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $nome = mysqli_real_escape_string($conexao, $_POST['name']);
     $senha = mysqli_real_escape_string($conexao, $_POST['password']);
 
-    $select = "SELECT * FROM cadusuario WHERE nmUsuario = '$nome' AND senha = '$senha' LIMIT 1";
+    $select = "SELECT * FROM cadUsuario WHERE nmUsuario = '$nome' AND senha = '$senha' LIMIT 1";
     $result = mysqli_query($conexao, $select);
 
     if (!$result) {
