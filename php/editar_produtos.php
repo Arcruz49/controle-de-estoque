@@ -9,8 +9,9 @@ if (!isset($_SESSION['nome'])) {
 include "../config/dbconfig.php";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    if (empty($_POST["cdProduto"]) || empty($_POST["nmProduto"]) || empty($_POST["descProduto"]) || empty($_POST["preco"]) || empty($_POST["quantidade"])) {
+    if (empty($_POST["cdProduto"]) || empty($_POST["nmProduto"]) || empty($_POST["descProduto"]) || empty($_POST["preco"]) || !isset($_POST["quantidade"])) {
         echo "Todos os campos são obrigatórios.";
+        mysqli_close($conexao);
         exit;
     }
 
@@ -28,13 +29,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $update = "UPDATE tb_produtos SET nmProduto = '$nmproduto', descProduto = '$descproduto', preco = '$preco', quantidade = '$quantidade' WHERE cdProduto = '$cdproduto'";
     $result = mysqli_query($conexao, $update);
 
-    if ($result) {
-        echo "success";
-    } else {
+    if (!$result) {
         echo "Não foi possível atualizar os dados do produto.";
-    }
+        mysqli_close($conexao);
+        exit;
+    } 
 
-    mysqli_close($conexao);
-    exit;
+    echo "success";
 }
+
+mysqli_close($conexao);
 ?>

@@ -12,6 +12,7 @@ include "../config/dbconfig.php";
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (empty($_POST["cdProduto"])) {
         echo "Código do produto não foi encontrado.";
+        mysqli_close($conexao);
         exit;
     }
 
@@ -20,13 +21,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $delete = "DELETE FROM tb_produtos WHERE cdProduto = '$cdproduto';";
     $result = mysqli_query($conexao, $delete);
 
-    if ($result) {
-        echo "success";
-        exit;
-    } else {
+    if (!$result) {
         echo "Não foi possível deletar o produto.";
+        mysqli_close($conexao);
         exit;
     }
+
+    echo "success";
 }
 
 mysqli_close($conexao);

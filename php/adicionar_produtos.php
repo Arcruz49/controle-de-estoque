@@ -10,8 +10,9 @@ if (!isset($_SESSION['nome'])) {
 include "../config/dbconfig.php";
     
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    if (empty($_POST["nmProduto"]) || empty($_POST["descProduto"]) || empty($_POST["preco"]) || empty($_POST["quantidade"])) {
+    if (empty($_POST["nmProduto"]) || empty($_POST["descProduto"]) || empty($_POST["preco"]) || !isset($_POST["quantidade"])) {
         echo "Campos obrigatórias.";
+        mysqli_close($conexao);
         exit;
     }
     $nmproduto = mysqli_real_escape_string($conexao, $_POST['nmProduto']);
@@ -30,11 +31,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($result == false) {
         echo "Não foi possível inserir os dados no banco.";
+        mysqli_close($conexao);
         exit;
     }
 
     echo "success";
-    exit;
 }
 
 mysqli_close($conexao);

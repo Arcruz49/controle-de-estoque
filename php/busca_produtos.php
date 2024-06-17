@@ -1,11 +1,4 @@
 <?php
-session_start();
-
-if (!isset($_SESSION['nome'])) {
-    header("Location: ../views/index.html");
-    exit;
-}
-
 header('Content-Type: application/json');
 
 include "../config/dbconfig.php";

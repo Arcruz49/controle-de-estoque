@@ -7,6 +7,7 @@ include "../config/dbconfig.php"; // Verifique se esse arquivo contém a configu
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (empty($_POST["name"]) || empty($_POST["password"])) {
         echo "Campos de nome e senha são obrigatórios";
+        mysqli_close($conexao);
         exit;
     }
 
@@ -18,11 +19,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if (!$result) {
         echo "Erro na consulta: " . mysqli_error($conexao);
+        mysqli_close($conexao);
         exit;
     }
 
     if (mysqli_num_rows($result) == 0) {
         echo "Usuário inválido";
+        mysqli_close($conexao);
         exit;
     }
 
@@ -32,7 +35,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $_SESSION['nome'] = $user['nmUsuario'];
 
     echo "success";
-    exit;
 }
 
 mysqli_close($conexao);
