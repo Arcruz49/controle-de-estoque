@@ -16,7 +16,7 @@
                     <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"/></svg>
                 </a>
                 <ul class="dropdown-menu text-small shadow">
-                    <li><a class="dropdown-item" href="#">Produtos</a></li>
+                    <li><a class="dropdown-item" href="menu.html">Produtos</a></li>
                     <li><a class="dropdown-item" href="#">Usuários</a></li>
                 </ul>
             </div>
@@ -42,7 +42,7 @@
     </header>
 
     <div class="container">
-        <h2 class="text" style="margin-bottom: 30px; margin-left: 60px;">Produtos</h2>
+        <h2 class="text" style="margin-bottom: 30px; margin-left: 6%;">Produtos</h2>
         <div class="d-flex justify-content-center">
             <table id="productsTable" class="table table-striped table-hover">
                 <thead class="table-header-center">
@@ -75,6 +75,7 @@
                 </div>
                 <div class="modal-body">
                     <form id="editProductForm">
+                        <span style="color: red; font-size: 10px; margin-bottom: 5px;">* Obrigatório</span>
                         <div class="mb-3">
                             <label for="editProductName" class="form-label">Nome do Produto <span id="nomeProdutoObrigatorio" style="color: red;">*</span></label>
                             <input type="text" class="form-control" id="editProductName" name="nmProduto">
@@ -92,8 +93,7 @@
                             <input type="text" inputmode="numeric" pattern="[0-9]*\.?[0-9]*" class="form-control" id="editProductQuantity" name="quantidade">
                         </div>
                         <input type="hidden" id="editProductId" name="cdProduto">
-                        <button type="submit" class="btn btn-primary">Salvar mudanças</button>
-                        <p id=""></p>
+                        <button type="submit" class="btn btn-primary">Salvar</button>
                     </form>
                 </div>
             </div>
@@ -109,6 +109,7 @@
                 </div>
                 <div class="modal-body">
                     <form id="addProdutoForm">
+                        <span style="color: red; font-size: 10px; margin-bottom: 50px;">* Obrigatório</span>
                         <div class="mb-3">
                             <label for="addProdutoName" class="form-label">Nome do Produto <span id="nomeProdutoObrigatorioAdd" style="color: red;">*</span></label>
                             <input type="text" class="form-control" id="addProdutoName" name="nmProduto">
