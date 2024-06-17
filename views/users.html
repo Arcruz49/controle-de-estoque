@@ -83,16 +83,12 @@
                             <input type="text" class="form-control" id="editUsuarioName" name="nmUsuario">
                         </div>
                         <div class="mb-3">
-                            <label for="editUserDescription" class="form-label">Descrição do Usuario <span id="descUsuarioObrigatorio" style="color: red;">*</span></label>
-                            <textarea class="form-control" id="editUserDescription" name="descUsuario"></textarea>
+                            <label for="editUserDescription" class="form-label">Email do Usuário <span id="descUsuarioObrigatorio" style="color: red;">*</span></label>
+                            <input type="email" class="form-control" id="editUserEmail" name="email">
                         </div>
                         <div class="mb-3">
-                            <label for="editUserPrice" class="form-label">Preço <span id="precoUsuarioObrigatorio" style="color: red;">*</span></label>
-                            <input type="text" inputmode="numeric" pattern="[0-9]*\.?[0-9]*" class="form-control" id="editUserPrice" name="preco">
-                        </div>
-                        <div class="mb-3">
-                            <label for="editUserQuantity" class="form-label">Quantidade <span id="quantidadeUsuarioObrigatorio" style="color: red;">*</span></label>
-                            <input type="text" inputmode="numeric" pattern="[0-9]*\.?[0-9]*" class="form-control" id="editUserQuantity" name="quantidade">
+                            <label for="editUserEmail" class="form-label">Senha <span id="precoUsuarioObrigatorio" style="color: red;">*</span></label>
+                            <input type="password" class="form-control" id="editUserPassword" name="senha">
                         </div>
                         <input type="hidden" id="editUserId" name="cdUsuario">
                         <button type="submit" class="btn btn-primary">Salvar</button>
@@ -117,16 +113,12 @@
                             <input type="text" class="form-control" id="addUsuarioName" name="nmUsuario">
                         </div>
                         <div class="mb-3">
-                            <label for="addUsuarioDescription" class="form-label">Descrição do Usuario <span id="descUsuarioObrigatorioAdd" style="color: red;">*</span></label>
-                            <textarea class="form-control" id="addUsuarioDescription" name="descUsuario"></textarea>
+                            <label for="addUsuarioEmail" class="form-label">Email do Usuário <span id="descUsuarioObrigatorioAdd" style="color: red;">*</span></label>
+                            <input type="text" class="form-control" id="addUsuarioEmail" name="email">
                         </div>
                         <div class="mb-3">
-                            <label for="addUsuarioPrice" class="form-label">Preço <span id="precoUsuarioObrigatorioAdd" style="color: red;">*</span></label>
-                            <input type="text" inputmode="numeric" pattern="[0-9]*\.?[0-9]*" class="form-control" id="addUsuarioPrice" name="preco">
-                        </div>
-                        <div class="mb-3">
-                            <label for="addUsuarioQuantity" class="form-label">Quantidade <span id="quantidadeUsuarioObrigatorioAdd" style="color: red;">*</span></label>
-                            <input type="text" inputmode="numeric" pattern="[0-9]*\.?[0-9]*" class="form-control" id="addUsuarioQuantity" name="quantidade">
+                            <label for="addUsuarioSenha" class="form-label">Senha <span id="precoUsuarioObrigatorioAdd" style="color: red;">*</span></label>
+                            <input type="password" class="form-control" id="addUsuarioSenha" name="senha">
                         </div>
                         <button type="submit" class="btn btn-primary">Adicionar</button>
                         <p id=""></p>
@@ -186,14 +178,6 @@
                     "render": function(data, type, row) {
                         return `
                             <div class="btn-group" role="group">
-                                <button type="button" class="btn d-flex flex-column align-items-center" title="Aumentar estoque" onclick="aumentaEstoque(${row.cdUsuario})">
-                                    <i class="far fa-square-plus"></i>
-                                    <span>Adicionar</span>
-                                </button>
-                                <button type="button" class="btn d-flex flex-column align-items-center" title="Diminuir estoque" onclick="diminuiEstoque(${row.cdUsuario})">
-                                    <i class="far fa-square-minus"></i>
-                                    <span>Remover</span>
-                                </button>
                                 <button type="button" class="btn d-flex flex-column align-items-center" title="Editar Usuario" onclick="editarUsuario(${row.cdUsuario})">
                                     <i class="fa-solid fa-pen-to-square"></i>
                                     <span>Editar</span>
@@ -359,7 +343,7 @@
                         $('#editUserId').val(Usuario.cdUsuario);
                         $('#editUserName').val(Usuario.nmUsuario);
                         $('#editUserDescription').val(Usuario.descUsuario);
-                        $('#editUserPrice').val(Usuario.preco);
+                        $('#editUserEmail').val(Usuario.preco);
                         $('#editUserQuantity').val(Usuario.quantidade);
 
                         var myModal = new bootstrap.Modal(document.getElementById('editUserModal'), {
@@ -403,12 +387,12 @@
                 $('#descUsuarioObrigatorio').text('');
             }
 
-            if ($('#editUserPrice').val() === '') {
+            if ($('#editUserEmail').val() === '') {
                 erro = true;
                 $('#precoUsuarioObrigatorio').text('*Campo obrigatório*');
             } else {
                 $('#precoUsuarioObrigatorio').text('');
-                if($('#editUserPrice').val() < 0){
+                if($('#editUserEmail').val() < 0){
                     $('#precoUsuarioObrigatorio').text('*Valor incorreto*');
 
                 }
@@ -472,19 +456,19 @@
                 $('#nomeUsuarioObrigatorioAdd').text('');
             }
 
-            if ($('#addUsuarioDescription').val() === '') {
+            if ($('#addUsuarioEmail').val() === '') {
                 erro = true;
                 $('#descUsuarioObrigatorioAdd').text('*Campo obrigatório*');
             } else {
                 $('#descUsuarioObrigatorioAdd').text('');
             }
 
-            if ($('#addUsuarioPrice').val() === '') {
+            if ($('#addUsuarioSenha').val() === '') {
                 erro = true;
                 $('#precoUsuarioObrigatorioAdd').text('*Campo obrigatório*');
             } else {
                 $('#precoUsuarioObrigatorioAdd').text('');
-                if($('#addUsuarioPrice').val() < 0){
+                if($('#addUsuarioSenha').val() < 0){
                     $('#precoUsuarioObrigatorioAdd').text('*Valor incorreto*');
                     erro = true;
                 }
@@ -537,8 +521,8 @@
 
         function limpaCampos(){
             $('#addUsuarioName').val('');
-            $('#addUsuarioDescription').val(''); 
-            $('#addUsuarioPrice').val('');
+            $('#addUsuarioEmail').val(''); 
+            $('#addUsuarioSenha').val('');
             $('#addUsuarioQuantity').val(''); 
             $('#nomeUsuarioObrigatorioAdd').text('*');
             $('#descUsuarioObrigatorioAdd').text('*');
