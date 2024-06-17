@@ -15,10 +15,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit;
     }
 
-    $cdusuario = mysqli_real_escape_string($conexao, $_POST['cdUsuario']),
-    $nmusuario = mysqli_real_escape_string($conexao, $_POST['nmUsuario']),
-    $email = mysqli_real_escape_string($conexao, $_POST['email']),
-    $senha = mysqli_real_escape_string($conexao, $_POST['senha']),
+    $cdusuario = mysqli_real_escape_string($conexao, $_POST['cdUsuario']);
+    $nmusuario = mysqli_real_escape_string($conexao, $_POST['nmUsuario']);
+    $email = mysqli_real_escape_string($conexao, $_POST['email']);
+    $senha = mysqli_real_escape_string($conexao, $_POST['senha']);
 
     $update = "UPDATE cadUsuario SET nmUsuario = '$nmusuario', email = '$email', senha = '$senha' WHERE cdUsuario = '$cdusuario'";
     $result = mysqli_query($conexao, $update);
