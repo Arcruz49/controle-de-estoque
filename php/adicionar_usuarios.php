@@ -10,7 +10,7 @@ if (!isset($_SESSION['nome'])) {
 include "../config/dbconfig.php";
     
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    if (empty($_POST["nmUsuario"]), empty($_POST["email"]), empty($_POST["senha"])) {
+    if (empty($_POST["nmUsuario"]) && empty($_POST["email"]) && empty($_POST["senha"])) {
         echo "Campos obrigatórias.";
         mysqli_close($conexao);
         exit;
