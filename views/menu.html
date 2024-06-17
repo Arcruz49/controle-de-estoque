@@ -52,7 +52,11 @@
                         <th>Descrição do Produto</th>
                         <th>Preço</th>
                         <th>Quantidade</th>
-                        <th></th>
+                        <th>
+                            <button type="button" class="btn" title="Adicionar produto" onclick="adicionarProduto()">
+                                <i class="fa-solid fa-plus"></i>
+                            </button>
+                        </th>
                     </tr>
                 </thead>
                 <tbody></tbody>
@@ -89,6 +93,39 @@
                         </div>
                         <input type="hidden" id="editProductId" name="cdProduto">
                         <button type="submit" class="btn btn-primary">Salvar mudanças</button>
+                        <p id=""></p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="addProdutoModal" tabindex="-1" aria-labelledby="addProdutoModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addProdutoModalLabel">Adicionar Produto</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="addProdutoForm">
+                        <div class="mb-3">
+                            <label for="addProdutoName" class="form-label">Nome do Produto <span id="nomeProdutoObrigatorioAdd" style="color: red;">*</span></label>
+                            <input type="text" class="form-control" id="addProdutoName" name="nmProduto">
+                        </div>
+                        <div class="mb-3">
+                            <label for="addProdutoDescription" class="form-label">Descrição do Produto <span id="descProdutoObrigatorioAdd" style="color: red;">*</span></label>
+                            <textarea class="form-control" id="addProdutoDescription" name="descProduto"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="addProdutoPrice" class="form-label">Preço <span id="precoProdutoObrigatorioAdd" style="color: red;">*</span></label>
+                            <input type="text" inputmode="numeric" pattern="[0-9]*\.?[0-9]*" class="form-control" id="addProdutoPrice" name="preco">
+                        </div>
+                        <div class="mb-3">
+                            <label for="addProdutoQuantity" class="form-label">Quantidade <span id="quantidadeProdutoObrigatorioAdd" style="color: red;">*</span></label>
+                            <input type="text" inputmode="numeric" pattern="[0-9]*\.?[0-9]*" class="form-control" id="addProdutoQuantity" name="quantidade">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Adicionar</button>
                         <p id=""></p>
                     </form>
                 </div>
@@ -186,7 +223,7 @@
           });
       });
 
-      function deleteProduto(cdProduto) {
+        function deleteProduto(cdProduto) {
           Swal.fire({
               html: "<h5 style='color:black; text-align: center;'>Tem certeza que quer deletar esse produto?</h5>",
               text: "Não será possível reverter depois",
@@ -237,7 +274,7 @@
           });
       }
 
-      function diminuiEstoque(cdProduto){
+        function diminuiEstoque(cdProduto){
           $.ajax({
               type: 'POST',
               url: '../php/diminuiEstoque.php',
@@ -265,7 +302,7 @@
           $("#productsTable").DataTable().ajax.reload(null, false);
       }
 
-      function aumentaEstoque(cdProduto){
+        function aumentaEstoque(cdProduto){
           $.ajax({
               type: 'POST',
               url: '../php/aumentaEstoque.php',
@@ -406,8 +443,95 @@
             }
         });
 
-    
+        function adicionarProduto() {
+            limpaCampos();
+            var myModal = new bootstrap.Modal(document.getElementById('addProdutoModal'), {
+                keyboard: false
+            });
+            myModal.show();
+        }
 
+        $('#addProdutoForm').on('submit', function(event) {
+            event.preventDefault();
+            debugger
+            let erro = false;
+
+            if ($('#addProdutoName').val() === '') {
+                erro = true;
+                $('#nomeProdutoObrigatorioAdd').text('*Campo obrigatório*');
+            } else {
+                $('#nomeProdutoObrigatorioAdd').text('');
+            }
+
+            if ($('#addProdutoDescription').val() === '') {
+                erro = true;
+                $('#descProdutoObrigatorioAdd').text('*Campo obrigatório*');
+            } else {
+                $('#descProdutoObrigatorioAdd').text('');
+            }
+
+            if ($('#addProdutoPrice').val() === '') {
+                erro = true;
+                $('#precoProdutoObrigatorioAdd').text('*Campo obrigatório*');
+            } else {
+                $('#precoProdutoObrigatorioAdd').text('');
+                if($('#addProdutoPrice').val() < 0){
+                    $('#precoProdutoObrigatorioAdd').text('*Valor incorreto*');
+                    erro = true;
+                }
+            }
+
+            if ($('#addProdutoQuantity').val() === '') {
+                erro = true;
+                $('#quantidadeProdutoObrigatorioAdd').text('*Campo obrigatório*');
+            } else {
+                $('#quantidadeProdutoObrigatorioAdd').text('');
+
+                if($('#addProdutoQuantity').val() < 0){
+                    $('#quantidadeProdutoObrigatorioAdd').text('Valor incorreto');
+                    erro = true;
+                }
+            }
+
+            if (!erro) {
+                $.ajax({
+                    type: 'POST',
+                    url: '../php/adicionar_produtos.php',
+                    data: $(this).serialize(),
+                    success: function(response) {
+                        if (response.trim() === 'success') {
+                            $('#addProdutoModal').modal('hide');
+                            $('#productsTable').DataTable().ajax.reload(null, false);
+                            Swal.fire({
+                                html: "<h5 style='color:black; text-align: center;'>Produto Adicionado</h5>",
+                                background: "#fff",
+                                icon: "success"
+                            });
+                        } else {
+                            Swal.fire({
+                                html: "<h5 style='color:black; text-align: center;'>Houve um erro adicionar o produto: " + response + "</h5>",
+                                background: "#fff",
+                                icon: "error"
+                            });
+                        }
+                    },
+                    error: function() {
+                        Swal.fire({
+                            html: "<h5 style='color:black; text-align: center;'>Houve um erro adicionar o produto.</h5>",
+                            background: "#fff",
+                            icon: "error"
+                        });
+                    }
+                });
+            }
+        });
+
+        function limpaCampos(){
+            $('#addProdutoName').val('');
+            $('#addProdutoDescription').val(''); 
+            $('#addProdutoPrice').val('');
+            $('#addProdutoQuantity').val(''); 
+        }
 
     </script>
 </body>
