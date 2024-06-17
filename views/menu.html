@@ -151,7 +151,7 @@
             url: '../php/verificar_session.php',
             success: function(response) {
                 if (response.trim() === 'noSession') {
-                    window.location.href = '../views/index.html';
+                    window.location.href = '..';
                 } else {
                     callback();
                 }

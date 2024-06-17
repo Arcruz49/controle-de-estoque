@@ -6,5 +6,5 @@ session_unset();
 
 session_destroy();
 
-header("Location: ../views/index.html")
+header("Location: ..")
 ?>
