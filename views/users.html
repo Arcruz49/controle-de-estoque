@@ -87,7 +87,7 @@
                             <input type="email" class="form-control" id="editUserEmail" name="email">
                         </div>
                         <div class="mb-3">
-                            <label for="editUserEmail" class="form-label">Senha <span id="precoUsuarioObrigatorio" style="color: red;">*</span></label>
+                            <label for="editUserPassword" class="form-label">Senha <span id="precoUsuarioObrigatorio" style="color: red;">*</span></label>
                             <input type="password" class="form-control" id="editUserPassword" name="senha">
                         </div>
                         <input type="hidden" id="editUserId" name="cdUsuario">
@@ -324,9 +324,10 @@
         }
 
         function editarUsuario(cdUsuario) {
+            debugger
             $.ajax({
                 type: 'GET',
-                url: '../php/get_Usuario.php',
+                url: '../php/get_usuario.php',
                 data: { cdUsuario: cdUsuario },
                 success: function(response) {
                     try {
@@ -342,9 +343,8 @@
                         }
                         $('#editUserId').val(Usuario.cdUsuario);
                         $('#editUserName').val(Usuario.nmUsuario);
-                        $('#editUserDescription').val(Usuario.descUsuario);
-                        $('#editUserEmail').val(Usuario.preco);
-                        $('#editUserQuantity').val(Usuario.quantidade);
+                        $('#editUserEmail').val(Usuario.email);
+                        $('#editUserPassword').val(Usuario.senha);
 
                         var myModal = new bootstrap.Modal(document.getElementById('editUserModal'), {
                             keyboard: false
