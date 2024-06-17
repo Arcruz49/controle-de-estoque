@@ -142,87 +142,105 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
 
     
-    <script>
+<script>
 
+    function verificaSession(callback) {
+        $.ajax({
+            type: 'GET',
+            url: '../php/verificar_session.php',
+            success: function(response) {
+                if (response.trim() === 'noSession') {
+                    window.location.href = '../views/index.html';
+                } else {
+                    callback();
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error("Erro ao verificar a sessão:", status, error);
+            }
+        });
+    }
 
-        $(document).ready(function() {
-          let table = $('#productsTable').DataTable({
-              "ajax": {
-                  "url": "../php/busca_produtos.php",
-                  "type": "GET",
-                  "data": function(d) {
-                      d.search = $('#search').val(); 
-                  },
-              },
-              "columns": [
-                  { "data": "cdProduto", "class": "table-cell-center" },
-                  { "data": "nmProduto", "class": "table-cell-center" },
-                  { 
-                    "data": "descProduto", 
-                    "class": "table-cell-center",
-                    "render": function(data, type, row) {
-                        if(data.length > 50)
-                            return data.substring(0, 50) + '...';
-                        return data;
-                      }
-                
-                  },
-                  { 
-                      "data": "preco",
-                      "class": "table-cell-center",
-                      "render": function(data, type, row) {
-                          return 'R$' + parseFloat(data).toFixed(2).replace('.', ',');
-                      }
-                  },
-                  { "data": "quantidade", "class": "table-cell-center" },
-                  { 
-                      "data": null,
-                      "class": "table-cell-center",
-                      "render": function(data, type, row) {
-                          return `
-                              <div class="btn-group" role="group">
-                                  <button type="button" class="btn d-flex flex-column align-items-center" title="Aumentar estoque" onclick="aumentaEstoque(${row.cdProduto})">
-                                      <i class="far fa-square-plus"></i>
-                                      <span>Adicionar</span>
-                                  </button>
-                                  <button type="button" class="btn d-flex flex-column align-items-center" title="Diminuir estoque" onclick="diminuiEstoque(${row.cdProduto})">
-                                      <i class="far fa-square-minus"></i>
-                                      <span>Remover</span>
-                                  </button>
-                                  <button type="button" class="btn d-flex flex-column align-items-center" title="Editar produto" onclick="editarProduto(${row.cdProduto})">
-                                      <i class="fa-solid fa-pen-to-square"></i>
-                                      <span>Editar</span>
-                                  </button>
-                                  <button type="button" class="btn d-flex flex-column align-items-center" title="Deletar produto" onclick="deleteProduto(${row.cdProduto})">
-                                      <i class="fa-solid fa-trash-can"></i>
-                                      <span>Deletar</span>
-                                  </button>
-                              </div>
-                          `;
-                      }
-                  }
-              ],
-              "searching": false,
-              "language": {
-                  "sLengthMenu": "Mostrando _MENU_ registros",
-                  "sSearch": "Pesquisar:",
-                  "sZeroRecords": "Nenhum registro encontrado",
-                  "sInfo": "Mostrando _START_ até _END_ de _TOTAL_ registros",
-                  "sInfoEmpty": "Mostrando 0 até 0 de 0 registros",
-                  "sInfoFiltered": "(filtrado de _MAX_ registros no total)",
-                  "oPaginate": {
-                      "sFirst": "Primeiro",
-                      "sLast": "Último",
-                      "sNext": "Próximo",
-                      "sPrevious": "Anterior"
-                  }
-              }
-          });
+    $(document).ready(function() {
+        verificaSession(function() {
+            let table = $('#productsTable').DataTable({
+                "ajax": {
+                    "url": "../php/busca_produtos.php",
+                    "type": "GET",
+                    "data": function(d) {
+                        d.search = $('#search').val(); 
+                    },
+                },
+                "columns": [
+                    { "data": "cdProduto", "class": "table-cell-center" },
+                    { "data": "nmProduto", "class": "table-cell-center" },
+                    { 
+                        "data": "descProduto", 
+                        "class": "table-cell-center",
+                        "render": function(data, type, row) {
+                            if(data.length > 50)
+                                return data.substring(0, 50) + '...';
+                            return data;
+                        }
+                    },
+                    { 
+                        "data": "preco",
+                        "class": "table-cell-center",
+                        "render": function(data, type, row) {
+                            return 'R$' + parseFloat(data).toFixed(2).replace('.', ',');
+                        }
+                    },
+                    { "data": "quantidade", "class": "table-cell-center" },
+                    { 
+                        "data": null,
+                        "class": "table-cell-center",
+                        "render": function(data, type, row) {
+                            return `
+                                <div class="btn-group" role="group">
+                                    <button type="button" class="btn d-flex flex-column align-items-center" title="Aumentar estoque" onclick="aumentaEstoque(${row.cdProduto})">
+                                        <i class="far fa-square-plus"></i>
+                                        <span>Adicionar</span>
+                                    </button>
+                                    <button type="button" class="btn d-flex flex-column align-items-center" title="Diminuir estoque" onclick="diminuiEstoque(${row.cdProduto})">
+                                        <i class="far fa-square-minus"></i>
+                                        <span>Remover</span>
+                                    </button>
+                                    <button type="button" class="btn d-flex flex-column align-items-center" title="Editar produto" onclick="editarProduto(${row.cdProduto})">
+                                        <i class="fa-solid fa-pen-to-square"></i>
+                                        <span>Editar</span>
+                                    </button>
+                                    <button type="button" class="btn d-flex flex-column align-items-center" title="Deletar produto" onclick="deleteProduto(${row.cdProduto})">
+                                        <i class="fa-solid fa-trash-can"></i>
+                                        <span>Deletar</span>
+                                    </button>
+                                </div>
+                            `;
+                        }
+                    }
+                ],
+                "searching": false,
+                "language": {
+                    "sLengthMenu": "Mostrando _MENU_ registros",
+                    "sSearch": "Pesquisar:",
+                    "sZeroRecords": "Nenhum registro encontrado",
+                    "sInfo": "Mostrando _START_ até _END_ de _TOTAL_ registros",
+                    "sInfoEmpty": "Mostrando 0 até 0 de 0 registros",
+                    "sInfoFiltered": "(filtrado de _MAX_ registros no total)",
+                    "oPaginate": {
+                        "sFirst": "Primeiro",
+                        "sLast": "Último",
+                        "sNext": "Próximo",
+                        "sPrevious": "Anterior"
+                    }
+                }
+            });
 
-          $('#search').on('keyup', function() {
-              table.ajax.reload(); 
-          });
-      });
+            $('#search').on('keyup', function() {
+                table.ajax.reload(); 
+            });
+        });
+    });
+
 
         function deleteProduto(cdProduto) {
           Swal.fire({
