@@ -45,14 +45,15 @@
     <div class="container">
         <h2 class="text" style="margin-bottom: 30px; margin-left: 6.5%;">Usuário</h2>
         <div class="d-flex justify-content-center">
-            <table id="usersTable" class="table table-striped table-hover">
+            <table id="usersTable" class="table table-striped table-hover" style="width: 90%;">
                 <thead class="table-header-center">
                     <tr>
                         <th>Código</th>
                         <th>Nome do Usuário</th>
+                        <th>Email</th>
                         <th>Data Criação</th>
                         <th>
-                            <button type="button" class="btn" title="Adicionar Usuário" onclick="adicionarProduto()">
+                            <button type="button" class="btn" title="Adicionar Usuário" onclick="adicionarUsuario()">
                                 <i class="fa-solid fa-plus"></i>
                                 <b>Novo Usuário</b>
                             </button>
@@ -63,6 +64,7 @@
             </table>
         </div>
     </div>
+    
 
 
 
@@ -81,18 +83,18 @@
                             <input type="text" class="form-control" id="editUsuarioName" name="nmUsuario">
                         </div>
                         <div class="mb-3">
-                            <label for="editProductDescription" class="form-label">Descrição do Produto <span id="descProdutoObrigatorio" style="color: red;">*</span></label>
-                            <textarea class="form-control" id="editProductDescription" name="descProduto"></textarea>
+                            <label for="editUserDescription" class="form-label">Descrição do Usuario <span id="descUsuarioObrigatorio" style="color: red;">*</span></label>
+                            <textarea class="form-control" id="editUserDescription" name="descUsuario"></textarea>
                         </div>
                         <div class="mb-3">
-                            <label for="editProductPrice" class="form-label">Preço <span id="precoProdutoObrigatorio" style="color: red;">*</span></label>
-                            <input type="text" inputmode="numeric" pattern="[0-9]*\.?[0-9]*" class="form-control" id="editProductPrice" name="preco">
+                            <label for="editUserPrice" class="form-label">Preço <span id="precoUsuarioObrigatorio" style="color: red;">*</span></label>
+                            <input type="text" inputmode="numeric" pattern="[0-9]*\.?[0-9]*" class="form-control" id="editUserPrice" name="preco">
                         </div>
                         <div class="mb-3">
-                            <label for="editProductQuantity" class="form-label">Quantidade <span id="quantidadeProdutoObrigatorio" style="color: red;">*</span></label>
-                            <input type="text" inputmode="numeric" pattern="[0-9]*\.?[0-9]*" class="form-control" id="editProductQuantity" name="quantidade">
+                            <label for="editUserQuantity" class="form-label">Quantidade <span id="quantidadeUsuarioObrigatorio" style="color: red;">*</span></label>
+                            <input type="text" inputmode="numeric" pattern="[0-9]*\.?[0-9]*" class="form-control" id="editUserQuantity" name="quantidade">
                         </div>
-                        <input type="hidden" id="editProductId" name="cdProduto">
+                        <input type="hidden" id="editUserId" name="cdUsuario">
                         <button type="submit" class="btn btn-primary">Salvar</button>
                     </form>
                 </div>
@@ -100,31 +102,31 @@
         </div>
     </div>
 
-    <div class="modal fade" id="addProdutoModal" tabindex="-1" aria-labelledby="addProdutoModalLabel" aria-hidden="true">
+    <div class="modal fade" id="addUsuarioModal" tabindex="-1" aria-labelledby="addUsuarioModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="addProdutoModalLabel">Adicionar Produto</h5>
+                    <h5 class="modal-title" id="addUsuarioModalLabel">Adicionar Usuario</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form id="addProdutoForm">
+                    <form id="addUsuarioForm">
                         <span style="color: red; font-size: 10px; margin-bottom: 50px;">* Obrigatório</span>
                         <div class="mb-3">
-                            <label for="addProdutoName" class="form-label">Nome do Produto <span id="nomeProdutoObrigatorioAdd" style="color: red;">*</span></label>
-                            <input type="text" class="form-control" id="addProdutoName" name="nmProduto">
+                            <label for="addUsuarioName" class="form-label">Nome do Usuario <span id="nomeUsuarioObrigatorioAdd" style="color: red;">*</span></label>
+                            <input type="text" class="form-control" id="addUsuarioName" name="nmUsuario">
                         </div>
                         <div class="mb-3">
-                            <label for="addProdutoDescription" class="form-label">Descrição do Produto <span id="descProdutoObrigatorioAdd" style="color: red;">*</span></label>
-                            <textarea class="form-control" id="addProdutoDescription" name="descProduto"></textarea>
+                            <label for="addUsuarioDescription" class="form-label">Descrição do Usuario <span id="descUsuarioObrigatorioAdd" style="color: red;">*</span></label>
+                            <textarea class="form-control" id="addUsuarioDescription" name="descUsuario"></textarea>
                         </div>
                         <div class="mb-3">
-                            <label for="addProdutoPrice" class="form-label">Preço <span id="precoProdutoObrigatorioAdd" style="color: red;">*</span></label>
-                            <input type="text" inputmode="numeric" pattern="[0-9]*\.?[0-9]*" class="form-control" id="addProdutoPrice" name="preco">
+                            <label for="addUsuarioPrice" class="form-label">Preço <span id="precoUsuarioObrigatorioAdd" style="color: red;">*</span></label>
+                            <input type="text" inputmode="numeric" pattern="[0-9]*\.?[0-9]*" class="form-control" id="addUsuarioPrice" name="preco">
                         </div>
                         <div class="mb-3">
-                            <label for="addProdutoQuantity" class="form-label">Quantidade <span id="quantidadeProdutoObrigatorioAdd" style="color: red;">*</span></label>
-                            <input type="text" inputmode="numeric" pattern="[0-9]*\.?[0-9]*" class="form-control" id="addProdutoQuantity" name="quantidade">
+                            <label for="addUsuarioQuantity" class="form-label">Quantidade <span id="quantidadeUsuarioObrigatorioAdd" style="color: red;">*</span></label>
+                            <input type="text" inputmode="numeric" pattern="[0-9]*\.?[0-9]*" class="form-control" id="addUsuarioQuantity" name="quantidade">
                         </div>
                         <button type="submit" class="btn btn-primary">Adicionar</button>
                         <p id=""></p>
@@ -163,74 +165,76 @@
 
     
     $(document).ready(function() {
-        verificaSession(function() {
-            let table = $('#usersTable').DataTable({
-                "ajax": {
-                    "url": "../php/busca_usuarios.php",
-                    "type": "GET",
-                    "data": function(d) {
-                        d.search = $('#search').val(); 
-                    },
+    verificaSession(function() {
+        let table = $('#usersTable').DataTable({
+            "ajax": {
+                "url": "../php/busca_usuarios.php",
+                "type": "GET",
+                "data": function(d) {
+                    d.search = $('#search').val();
                 },
-                "columns": [
-                    { "data": "cdUsuario", "class": "table-cell-center" },
-                    { "data": "nmUsuario", "class": "table-cell-center" },
-                    { "data": "email", "class": "table-cell-center"},
-                    { "data": "dtCriacao", "class": "table-cell-center"},
-                    { 
-                        "data": null,
-                        "class": "table-cell-center",
-                        "render": function(data, type, row) {
-                            return `
-                                <div class="btn-group" role="group">
-                                    <button type="button" class="btn d-flex flex-column align-items-center" title="Aumentar estoque" onclick="aumentaEstoque(${row.cdProduto})">
-                                        <i class="far fa-square-plus"></i>
-                                        <span>Adicionar</span>
-                                    </button>
-                                    <button type="button" class="btn d-flex flex-column align-items-center" title="Diminuir estoque" onclick="diminuiEstoque(${row.cdProduto})">
-                                        <i class="far fa-square-minus"></i>
-                                        <span>Remover</span>
-                                    </button>
-                                    <button type="button" class="btn d-flex flex-column align-items-center" title="Editar produto" onclick="editarProduto(${row.cdProduto})">
-                                        <i class="fa-solid fa-pen-to-square"></i>
-                                        <span>Editar</span>
-                                    </button>
-                                    <button type="button" class="btn d-flex flex-column align-items-center" title="Deletar produto" onclick="deleteProduto(${row.cdProduto})">
-                                        <i class="fa-solid fa-trash-can"></i>
-                                        <span>Deletar</span>
-                                    </button>
-                                </div>
-                            `;
-                        }
-                    }
-                ],
-                "searching": false,
-                "language": {
-                    "sLengthMenu": "Mostrando _MENU_ registros",
-                    "sSearch": "Pesquisar:",
-                    "sZeroRecords": "Nenhum registro encontrado",
-                    "sInfo": "Mostrando _START_ até _END_ de _TOTAL_ registros",
-                    "sInfoEmpty": "Mostrando 0 até 0 de 0 registros",
-                    "sInfoFiltered": "(filtrado de _MAX_ registros no total)",
-                    "oPaginate": {
-                        "sFirst": "Primeiro",
-                        "sLast": "Último",
-                        "sNext": "Próximo",
-                        "sPrevious": "Anterior"
+            },
+            "columns": [
+                { "data": "cdUsuario", "class": "table-cell-center", "width": "10%" },
+                { "data": "nmUsuario", "class": "table-cell-center", "width": "20%" },
+                { "data": "email", "class": "table-cell-center", "width": "30%" },
+                { "data": "dtCriacao", "class": "table-cell-center", "width": "20%" },
+                { 
+                    "data": null,
+                    "class": "table-cell-center",
+                    "width": "20%",
+                    "render": function(data, type, row) {
+                        return `
+                            <div class="btn-group" role="group">
+                                <button type="button" class="btn d-flex flex-column align-items-center" title="Aumentar estoque" onclick="aumentaEstoque(${row.cdUsuario})">
+                                    <i class="far fa-square-plus"></i>
+                                    <span>Adicionar</span>
+                                </button>
+                                <button type="button" class="btn d-flex flex-column align-items-center" title="Diminuir estoque" onclick="diminuiEstoque(${row.cdUsuario})">
+                                    <i class="far fa-square-minus"></i>
+                                    <span>Remover</span>
+                                </button>
+                                <button type="button" class="btn d-flex flex-column align-items-center" title="Editar Usuario" onclick="editarUsuario(${row.cdUsuario})">
+                                    <i class="fa-solid fa-pen-to-square"></i>
+                                    <span>Editar</span>
+                                </button>
+                                <button type="button" class="btn d-flex flex-column align-items-center" title="Deletar Usuario" onclick="deleteUsuario(${row.cdUsuario})">
+                                    <i class="fa-solid fa-trash-can"></i>
+                                    <span>Deletar</span>
+                                </button>
+                            </div>
+                        `;
                     }
                 }
-            });
+            ],
+            "searching": false,
+            "language": {
+                "sLengthMenu": "Mostrando _MENU_ registros",
+                "sSearch": "Pesquisar:",
+                "sZeroRecords": "Nenhum registro encontrado",
+                "sInfo": "Mostrando _START_ até _END_ de _TOTAL_ registros",
+                "sInfoEmpty": "Mostrando 0 até 0 de 0 registros",
+                "sInfoFiltered": "(filtrado de _MAX_ registros no total)",
+                "oPaginate": {
+                    "sFirst": "Primeiro",
+                    "sLast": "Último",
+                    "sNext": "Próximo",
+                    "sPrevious": "Anterior"
+                }
+            }
+        });
 
-            $('#search').on('keyup', function() {
-                table.ajax.reload(); 
-            });
+        $('#search').on('keyup', function() {
+            table.ajax.reload();
         });
     });
+});
 
 
-        function deleteProduto(cdProduto) {
+
+        function deleteUsuario(cdUsuario) {
           Swal.fire({
-              html: "<h5 style='color:black; text-align: center;'>Tem certeza que quer deletar esse produto?</h5>",
+              html: "<h5 style='color:black; text-align: center;'>Tem certeza que quer deletar esse Usuario?</h5>",
               text: "Não será possível reverter depois",
               icon: "warning",
               background: "#fff",
@@ -246,14 +250,14 @@
               if (result.isConfirmed) {
                   $.ajax({
                       type: 'POST',
-                      url: '../php/excluir_produtos.php',
-                      data: { cdProduto: cdProduto }, 
+                      url: '../php/excluir_Usuarios.php',
+                      data: { cdUsuario: cdUsuario }, 
                       success: function(response) {
                           if (response.trim() === 'success') {
-                              $("#productsTable").DataTable().ajax.reload(null, false);
+                              $("#usersTable").DataTable().ajax.reload(null, false);
 
                               Swal.fire({
-                                  html: "<h5 style='color:black; text-align: center;'>Produto Deletado</h5>",
+                                  html: "<h5 style='color:black; text-align: center;'>Usuario Deletado</h5>",
                                   background: "#fff",
                                   icon: "success"
                               })
@@ -274,19 +278,19 @@
                           });
                       }
                   });
-                  $("#productsTable").DataTable().ajax.reload(null, false);
+                  $("#usersTable").DataTable().ajax.reload(null, false);
               }
           });
       }
 
-        function diminuiEstoque(cdProduto){
+        function diminuiEstoque(cdUsuario){
           $.ajax({
               type: 'POST',
               url: '../php/diminuiEstoque.php',
-              data: { cdProduto: cdProduto }, 
+              data: { cdUsuario: cdUsuario }, 
               success: function(response) {
                   if (response.trim() === 'success') {
-                      $("#productsTable").DataTable().ajax.reload(null, false);
+                      $("#usersTable").DataTable().ajax.reload(null, false);
 
                   } else {
                       Swal.fire({
@@ -304,17 +308,17 @@
                   });
               }
           });
-          $("#productsTable").DataTable().ajax.reload(null, false);
+          $("#usersTable").DataTable().ajax.reload(null, false);
       }
 
-        function aumentaEstoque(cdProduto){
+        function aumentaEstoque(cdUsuario){
           $.ajax({
               type: 'POST',
               url: '../php/aumentaEstoque.php',
-              data: { cdProduto: cdProduto }, 
+              data: { cdUsuario: cdUsuario }, 
               success: function(response) {
                   if (response.trim() === 'success') {
-                      $("#productsTable").DataTable().ajax.reload(null, false);
+                      $("#usersTable").DataTable().ajax.reload(null, false);
 
                   } else {
                       Swal.fire({
@@ -332,33 +336,33 @@
                   });
               }
           });
-          $("#productsTable").DataTable().ajax.reload(null, false);
+          $("#usersTable").DataTable().ajax.reload(null, false);
         }
 
-        function editarProduto(cdProduto) {
+        function editarUsuario(cdUsuario) {
             $.ajax({
                 type: 'GET',
-                url: '../php/get_produto.php',
-                data: { cdProduto: cdProduto },
+                url: '../php/get_Usuario.php',
+                data: { cdUsuario: cdUsuario },
                 success: function(response) {
                     try {
-                        var produto = response;
+                        var Usuario = response;
 
-                        if (produto.error) {
+                        if (Usuario.error) {
                             Swal.fire({
-                                html: `<h5 style='color:black; text-align: center;'>${produto.error}</h5>`,
+                                html: `<h5 style='color:black; text-align: center;'>${Usuario.error}</h5>`,
                                 background: "#fff",
                                 icon: "error"
                             });
                             return;
                         }
-                        $('#editProductId').val(produto.cdProduto);
-                        $('#editProductName').val(produto.nmProduto);
-                        $('#editProductDescription').val(produto.descProduto);
-                        $('#editProductPrice').val(produto.preco);
-                        $('#editProductQuantity').val(produto.quantidade);
+                        $('#editUserId').val(Usuario.cdUsuario);
+                        $('#editUserName').val(Usuario.nmUsuario);
+                        $('#editUserDescription').val(Usuario.descUsuario);
+                        $('#editUserPrice').val(Usuario.preco);
+                        $('#editUserQuantity').val(Usuario.quantidade);
 
-                        var myModal = new bootstrap.Modal(document.getElementById('editProductModal'), {
+                        var myModal = new bootstrap.Modal(document.getElementById('editUserModal'), {
                             keyboard: false
                         });
                         myModal.show();
@@ -372,7 +376,7 @@
                 },
                 error: function() {
                     Swal.fire({
-                        html: "<h5 style='color:black; text-align: center;'>Houve um erro ao obter os dados do produto.</h5>",
+                        html: "<h5 style='color:black; text-align: center;'>Houve um erro ao obter os dados do Usuario.</h5>",
                         background: "#fff",
                         icon: "error"
                     });
@@ -380,58 +384,58 @@
             });
         }
 
-        $('#editProductForm').on('submit', function(event) {
+        $('#editUserForm').on('submit', function(event) {
             event.preventDefault();
 
             let erro = false;
 
-            if ($('#editProductName').val() === '') {
+            if ($('#editUserName').val() === '') {
                 erro = true;
-                $('#nomeProdutoObrigatorio').text('*Campo obrigatório*');
+                $('#nomeUsuarioObrigatorio').text('*Campo obrigatório*');
             } else {
-                $('#nomeProdutoObrigatorio').text('');
+                $('#nomeUsuarioObrigatorio').text('');
             }
 
-            if ($('#editProductDescription').val() === '') {
+            if ($('#editUserDescription').val() === '') {
                 erro = true;
-                $('#descProdutoObrigatorio').text('*Campo obrigatório*');
+                $('#descUsuarioObrigatorio').text('*Campo obrigatório*');
             } else {
-                $('#descProdutoObrigatorio').text('');
+                $('#descUsuarioObrigatorio').text('');
             }
 
-            if ($('#editProductPrice').val() === '') {
+            if ($('#editUserPrice').val() === '') {
                 erro = true;
-                $('#precoProdutoObrigatorio').text('*Campo obrigatório*');
+                $('#precoUsuarioObrigatorio').text('*Campo obrigatório*');
             } else {
-                $('#precoProdutoObrigatorio').text('');
-                if($('#editProductPrice').val() < 0){
-                    $('#precoProdutoObrigatorio').text('*Valor incorreto*');
+                $('#precoUsuarioObrigatorio').text('');
+                if($('#editUserPrice').val() < 0){
+                    $('#precoUsuarioObrigatorio').text('*Valor incorreto*');
 
                 }
             }
 
-            if ($('#editProductQuantity').val() === '') {
+            if ($('#editUserQuantity').val() === '') {
                 erro = true;
-                $('#quantidadeProdutoObrigatorio').text('*Campo obrigatório*');
+                $('#quantidadeUsuarioObrigatorio').text('*Campo obrigatório*');
             } else {
-                $('#quantidadeProdutoObrigatorio').text('');
+                $('#quantidadeUsuarioObrigatorio').text('');
 
-                if($('#editProductQuantity').val() < 0)
-                    $('#quantidadeProdutoObrigatorio').text('Valor incorreto');
+                if($('#editUserQuantity').val() < 0)
+                    $('#quantidadeUsuarioObrigatorio').text('Valor incorreto');
             }
 
             if (!erro) {
                 $.ajax({
                     type: 'POST',
-                    url: '../php/editar_produtos.php',
+                    url: '../php/editar_Usuarios.php',
                     data: $(this).serialize(),
                     success: function(response) {
                         if (response.trim() === 'success') {
-                            $('#editProductModal').modal('hide');
-                            $('#productsTable').DataTable().ajax.reload(null, false);
+                            $('#editUserModal').modal('hide');
+                            $('#usersTable').DataTable().ajax.reload(null, false);
                         } else {
                             Swal.fire({
-                                html: "<h5 style='color:black; text-align: center;'>Houve um erro ao alterar os dados do produto: " + response + "</h5>",
+                                html: "<h5 style='color:black; text-align: center;'>Houve um erro ao alterar os dados do Usuario: " + response + "</h5>",
                                 background: "#fff",
                                 icon: "error"
                             });
@@ -439,7 +443,7 @@
                     },
                     error: function() {
                         Swal.fire({
-                            html: "<h5 style='color:black; text-align: center;'>Houve um erro ao alterar os dados do produto.</h5>",
+                            html: "<h5 style='color:black; text-align: center;'>Houve um erro ao alterar os dados do Usuario.</h5>",
                             background: "#fff",
                             icon: "error"
                         });
@@ -448,52 +452,52 @@
             }
         });
 
-        function adicionarProduto() {
+        function adicionarUsuario() {
             limpaCampos();
-            var myModal = new bootstrap.Modal(document.getElementById('addProdutoModal'), {
+            var myModal = new bootstrap.Modal(document.getElementById('addUsuarioModal'), {
                 keyboard: false
             });
             myModal.show();
         }
 
-        $('#addProdutoForm').on('submit', function(event) {
+        $('#addUsuarioForm').on('submit', function(event) {
             event.preventDefault();
             debugger
             let erro = false;
 
-            if ($('#addProdutoName').val() === '') {
+            if ($('#addUsuarioName').val() === '') {
                 erro = true;
-                $('#nomeProdutoObrigatorioAdd').text('*Campo obrigatório*');
+                $('#nomeUsuarioObrigatorioAdd').text('*Campo obrigatório*');
             } else {
-                $('#nomeProdutoObrigatorioAdd').text('');
+                $('#nomeUsuarioObrigatorioAdd').text('');
             }
 
-            if ($('#addProdutoDescription').val() === '') {
+            if ($('#addUsuarioDescription').val() === '') {
                 erro = true;
-                $('#descProdutoObrigatorioAdd').text('*Campo obrigatório*');
+                $('#descUsuarioObrigatorioAdd').text('*Campo obrigatório*');
             } else {
-                $('#descProdutoObrigatorioAdd').text('');
+                $('#descUsuarioObrigatorioAdd').text('');
             }
 
-            if ($('#addProdutoPrice').val() === '') {
+            if ($('#addUsuarioPrice').val() === '') {
                 erro = true;
-                $('#precoProdutoObrigatorioAdd').text('*Campo obrigatório*');
+                $('#precoUsuarioObrigatorioAdd').text('*Campo obrigatório*');
             } else {
-                $('#precoProdutoObrigatorioAdd').text('');
-                if($('#addProdutoPrice').val() < 0){
-                    $('#precoProdutoObrigatorioAdd').text('*Valor incorreto*');
+                $('#precoUsuarioObrigatorioAdd').text('');
+                if($('#addUsuarioPrice').val() < 0){
+                    $('#precoUsuarioObrigatorioAdd').text('*Valor incorreto*');
                     erro = true;
                 }
             }
 
-            if ($('#addProdutoQuantity').val() === '') {
+            if ($('#addUsuarioQuantity').val() === '') {
                 erro = true;
-                $('#quantidadeProdutoObrigatorioAdd').text('*Campo obrigatório*');
+                $('#quantidadeUsuarioObrigatorioAdd').text('*Campo obrigatório*');
             } else {
-                $('#quantidadeProdutoObrigatorioAdd').text('');
+                $('#quantidadeUsuarioObrigatorioAdd').text('');
 
-                if($('#addProdutoQuantity').val() < 0){
-                    $('#quantidadeProdutoObrigatorioAdd').text('Valor incorreto');
+                if($('#addUsuarioQuantity').val() < 0){
+                    $('#quantidadeUsuarioObrigatorioAdd').text('Valor incorreto');
                     erro = true;
                 }
             }
@@ -501,20 +505,20 @@
             if (!erro) {
                 $.ajax({
                     type: 'POST',
-                    url: '../php/adicionar_produtos.php',
+                    url: '../php/adicionar_Usuarios.php',
                     data: $(this).serialize(),
                     success: function(response) {
                         if (response.trim() === 'success') {
-                            $('#addProdutoModal').modal('hide');
-                            $('#productsTable').DataTable().ajax.reload(null, false);
+                            $('#addUsuarioModal').modal('hide');
+                            $('#usersTable').DataTable().ajax.reload(null, false);
                             Swal.fire({
-                                html: "<h5 style='color:black; text-align: center;'>Produto Adicionado</h5>",
+                                html: "<h5 style='color:black; text-align: center;'>Usuario Adicionado</h5>",
                                 background: "#fff",
                                 icon: "success"
                             });
                         } else {
                             Swal.fire({
-                                html: "<h5 style='color:black; text-align: center;'>Houve um erro adicionar o produto: " + response + "</h5>",
+                                html: "<h5 style='color:black; text-align: center;'>Houve um erro adicionar o Usuario: " + response + "</h5>",
                                 background: "#fff",
                                 icon: "error"
                             });
@@ -522,7 +526,7 @@
                     },
                     error: function() {
                         Swal.fire({
-                            html: "<h5 style='color:black; text-align: center;'>Houve um erro adicionar o produto.</h5>",
+                            html: "<h5 style='color:black; text-align: center;'>Houve um erro adicionar o Usuario.</h5>",
                             background: "#fff",
                             icon: "error"
                         });
@@ -532,14 +536,14 @@
         });
 
         function limpaCampos(){
-            $('#addProdutoName').val('');
-            $('#addProdutoDescription').val(''); 
-            $('#addProdutoPrice').val('');
-            $('#addProdutoQuantity').val(''); 
-            $('#nomeProdutoObrigatorioAdd').text('*');
-            $('#descProdutoObrigatorioAdd').text('*');
-            $('#precoProdutoObrigatorioAdd').text('*');
-            $('#quantidadeProdutoObrigatorioAdd').text('*');
+            $('#addUsuarioName').val('');
+            $('#addUsuarioDescription').val(''); 
+            $('#addUsuarioPrice').val('');
+            $('#addUsuarioQuantity').val(''); 
+            $('#nomeUsuarioObrigatorioAdd').text('*');
+            $('#descUsuarioObrigatorioAdd').text('*');
+            $('#precoUsuarioObrigatorioAdd').text('*');
+            $('#quantidadeUsuarioObrigatorioAdd').text('*');
         }
 
     </script>
