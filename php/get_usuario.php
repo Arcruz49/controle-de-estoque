@@ -14,13 +14,13 @@ $cdusuario = isset($_GET['cdUsuario']) ? mysqli_real_escape_string($conexao, $_G
 
 $response = [];
 
-if ($cdproduto) {
+if ($cdusuario) {
     $query = "SELECT * FROM cadUsuario WHERE cdUsuario = '$cdusuario'";
     $result = mysqli_query($conexao, $query);
 
     if ($result && mysqli_num_rows($result) > 0) {
-        $produto = mysqli_fetch_assoc($result);
-        $response = $produto;
+        $usuario = mysqli_fetch_assoc($result);
+        $response = $usuario;
     } else {
         $response = ["error" => "Usuario não encontrado"];
     }
