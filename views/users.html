@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="../css/styleMenu.css">
     <link href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@4/dark.css" rel="stylesheet">
     <link rel="icon" type="image/png" sizes="32x32" href="../images/favicon-32x32.png">
-    <title>Stock Manager Products</title>
+    <title>Stock Manager Users</title>
 </head>
 <body>
     <header class="py-3 mb-3">
@@ -43,20 +43,18 @@
     </header>
 
     <div class="container">
-        <h2 class="text" style="margin-bottom: 30px; margin-left: 6.5%;">Produtos</h2>
+        <h2 class="text" style="margin-bottom: 30px; margin-left: 6.5%;">Usuário</h2>
         <div class="d-flex justify-content-center">
-            <table id="productsTable" class="table table-striped table-hover">
+            <table id="usersTable" class="table table-striped table-hover">
                 <thead class="table-header-center">
                     <tr>
                         <th>Código</th>
-                        <th>Nome do Produto</th>
-                        <th>Descrição do Produto</th>
-                        <th>Preço</th>
-                        <th>Quantidade</th>
+                        <th>Nome do Usuário</th>
+                        <th>Data Criação</th>
                         <th>
-                            <button type="button" class="btn" title="Adicionar produto" onclick="adicionarProduto()">
+                            <button type="button" class="btn" title="Adicionar Usuário" onclick="adicionarProduto()">
                                 <i class="fa-solid fa-plus"></i>
-                                <b>Novo Produto</b>
+                                <b>Novo Usuário</b>
                             </button>
                         </th>
                     </tr>
@@ -68,19 +66,19 @@
 
 
 
-    <div class="modal fade" id="editProductModal" tabindex="-1" aria-labelledby="editProductModalLabel" aria-hidden="true">
+    <div class="modal fade" id="editUserModal" tabindex="-1" aria-labelledby="editUserModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="editProductModalLabel">Editar Produto</h5>
+                    <h5 class="modal-title" id="editUserModalLabel">Editar Usuário</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form id="editProductForm">
+                    <form id="editUserForm">
                         <span style="color: red; font-size: 10px; margin-bottom: 5px;">* Obrigatório</span>
                         <div class="mb-3">
-                            <label for="editProductName" class="form-label">Nome do Produto <span id="nomeProdutoObrigatorio" style="color: red;">*</span></label>
-                            <input type="text" class="form-control" id="editProductName" name="nmProduto">
+                            <label for="editUserName" class="form-label">Nome do Usuário <span id="nomeUsuarioObrigatorio" style="color: red;">*</span></label>
+                            <input type="text" class="form-control" id="editUsuarioName" name="nmUsuario">
                         </div>
                         <div class="mb-3">
                             <label for="editProductDescription" class="form-label">Descrição do Produto <span id="descProdutoObrigatorio" style="color: red;">*</span></label>
@@ -163,36 +161,22 @@
         });
     }
 
+    
     $(document).ready(function() {
         verificaSession(function() {
-            let table = $('#productsTable').DataTable({
+            let table = $('#usersTable').DataTable({
                 "ajax": {
-                    "url": "../php/busca_produtos.php",
+                    "url": "../php/busca_usuarios.php",
                     "type": "GET",
                     "data": function(d) {
                         d.search = $('#search').val(); 
                     },
                 },
                 "columns": [
-                    { "data": "cdProduto", "class": "table-cell-center" },
-                    { "data": "nmProduto", "class": "table-cell-center" },
-                    { 
-                        "data": "descProduto", 
-                        "class": "table-cell-center",
-                        "render": function(data, type, row) {
-                            if(data.length > 50)
-                                return data.substring(0, 50) + '...';
-                            return data;
-                        }
-                    },
-                    { 
-                        "data": "preco",
-                        "class": "table-cell-center",
-                        "render": function(data, type, row) {
-                            return 'R$' + parseFloat(data).toFixed(2).replace('.', ',');
-                        }
-                    },
-                    { "data": "quantidade", "class": "table-cell-center" },
+                    { "data": "cdUsuario", "class": "table-cell-center" },
+                    { "data": "nmUsuario", "class": "table-cell-center" },
+                    { "data": "email", "class": "table-cell-center"},
+                    { "data": "dtCriacao", "class": "table-cell-center"},
                     { 
                         "data": null,
                         "class": "table-cell-center",
