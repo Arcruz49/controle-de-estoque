@@ -5,7 +5,7 @@ include "../config/dbconfig.php";
 
 $searchTerm = isset($_GET['search']) ? mysqli_real_escape_string($conexao, $_GET['search']) : '';
 
-$query = "SELECT cdUsuario, nmUsuario, email, senha FROM cadUsuario WHERE nmUsuario like '%$searchTerm%'";
+$query = "SELECT cdUsuario, nmUsuario, email, dtCriacao FROM cadUsuario WHERE nmUsuario like '%$searchTerm%'";
 $result = mysqli_query($conexao, $query);
 
 $data = array();
