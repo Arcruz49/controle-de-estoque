@@ -20,7 +20,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = mysqli_real_escape_string($conexao, $_POST["email"]);
     $senha = mysqli_real_escape_string($conexao, $_POST["senha"]);
 
-    $insert = "INSERT INTO cadusuario (nmUsuario, email, senha, dtCriacao)
+    $insert = "INSERT INTO cadUsuario (nmUsuario, email, senha, dtCriacao)
                VALUES ('$nmusuario', '$email', '$senha', NOW())";    
     
     $result = mysqli_query($conexao, $insert);
