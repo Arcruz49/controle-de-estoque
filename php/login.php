@@ -2,8 +2,7 @@
 
 session_start();
 
-include "../config/dbconfig.php"; // Verifique se esse arquivo contém a configuração correta da conexão com o banco de dados
-
+include "../config/dbconfig.php"; 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (empty($_POST["name"]) || empty($_POST["password"])) {
         echo "Campos de nome e senha são obrigatórios";
